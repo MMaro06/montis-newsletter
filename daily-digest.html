@@ -592,5 +592,5 @@ async function renderSum(nls){const ctx=nls.map(n=>n.subject+': '+n.body.slice(0
 async function refreshAll(){const btn=document.getElementById('rbtn');btn.disabled=true;btn.classList.add('loading');btn.innerHTML='<span class="spin">↻</span> Refreshing…';document.getElementById('dateBadge').textContent=todayStr();loadCrypto();const nls=await fetchNL();await Promise.all([renderSum(nls),renderBC(nls),renderAI(nls),renderMontis(nls),renderBonds(),renderWarrants(),renderMarkets(nls),renderPoly(nls),renderGeo(nls)]);btn.disabled=false;btn.classList.remove('loading');btn.innerHTML='<span class="spin">↻</span> Refresh'}
 window.addEventListener('DOMContentLoaded',()=>{document.getElementById('dateBadge').textContent=todayStr();loadCrypto(true);setInterval(()=>loadCrypto(false),30000)});
 </script>
-</body>
+<script>window.addEventListener('DOMContentLoaded',function(){fetch('blockchain.html?t='+Date.now()).then(function(r){return r.text()}).then(function(t){if(t&&t.trim().length>20){var el=document.getElementById('blockchainContent');if(el)el.innerHTML=t}}).catch(function(){})});</script></body>
 </html>
