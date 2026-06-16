@@ -1,0 +1,261 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Daily Digest",
+  "schemaVersion": 1,
+  "description": "Montis Digital daily working tool (V2): TL;DR Montis Brief, Montis Radar (DLT/CSD/tokenisation/wholesale-CBDC), DLT & Post-Trade, Regulatory Pulse (CSSF/BCL/ESMA/EBA/MiCA/DLT Pilot/CSDR), condensed Macro Outlook, Geopolitics. Every DLT/regulatory item carries a mandatory Montis-angle callout and a relevance tag (action/watch/context).",
+  "mcpTools": [
+    "mcp__claude_ai_Gmail__search_threads",
+    "mcp__claude_ai_Gmail__get_thread"
+  ],
+  "mcpServerNames": ["Gmail","Gmail"]
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Digest — Montis · Lëtz Go</title>
+<style>
+:root{color-scheme:light;--bg:#f4f3ef;--card:#ffffff;--border:#eeede8;--text:#111111;--muted:#999;--pill:#f7f6f2;--up:#16a34a;--dn:#dc2626;--neu:#d97706;--montis:#4338ca;--montis-bg:#eef2ff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:20px 14px 60px}
+.hdr{max-width:900px;margin:0 auto 20px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hdr h1{font-size:22px;font-weight:900;letter-spacing:-.5px}
+.hdr .tag{font-size:11px;color:var(--muted);margin-top:2px}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.dbadge{font-size:11px;font-weight:700;color:#555;background:#e8e6e0;padding:4px 11px;border-radius:20px}
+.rbtn{background:#111;color:#fff;border:none;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;transition:background .2s}
+.rbtn:hover{background:#333}
+.rbtn:disabled{background:#aaa;cursor:not-allowed}
+.rbtn.loading .spin{animation:spin .7s linear infinite}
+.toggle{display:inline-flex;background:#fff;border:1px solid var(--border);border-radius:20px;padding:2px;gap:0}
+.toggle a{font-size:10px;font-weight:800;color:#888;text-decoration:none;padding:4px 11px;border-radius:18px;transition:all .15s;letter-spacing:.3px}
+.toggle a.active{background:#111;color:#fff}
+.toggle a:hover:not(.active){color:#111}
+@keyframes spin{to{transform:rotate(360deg)}}
+.g{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fw{grid-column:1/-1}
+.card{background:var(--card);border-radius:14px;padding:16px 18px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+/* Montis Radar is the #1 priority section — give it visual primacy over the look-alike DLT card */
+.card-radar{border-left:4px solid var(--montis);box-shadow:0 2px 12px rgba(67,56,202,.09)}
+.card-radar .ct{color:var(--montis)}
+.ch{display:flex;align-items:center;gap:7px;margin-bottom:13px}
+.ci{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.ci-fin{background:#fff8e1}.ci-mkts{background:#f0f9ff}.ci-nl{background:#f0f4ff}
+.ci-poly{background:#fff3f0}.ci-ai{background:#f0f9ff}.ci-geo{background:#f0fdf4}.ci-sum{background:#fdf4ff}
+.ci-bc{background:#f0fdf4}.ci-montis{background:#e0e7ff}.ci-bonds{background:#fef3c7}.ci-war{background:#f3e8ff}.ci-reg{background:#fee2e2}.ci-tldr{background:rgba(255,255,255,.16)}
+.ct{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#111}
+.cs{font-size:10px;color:var(--muted);margin-top:1px}
+.up{color:var(--up)}.dn{color:var(--dn)}.neu{color:var(--neu)}
+.src-link{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;color:#999;text-decoration:none;background:rgba(0,0,0,.05);padding:2px 7px;border-radius:8px;margin-top:5px;transition:background .15s,color .15s}
+.src-link:hover{background:rgba(0,0,0,.1);color:#333}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pi{background:var(--pill);border-radius:9px;padding:9px 11px;text-decoration:none;display:block;transition:background .15s}
+.pi:hover{background:#eeeee8}
+.pl{font-size:11px;color:#666;line-height:1.35;margin-bottom:5px}
+.po{font-size:20px;font-weight:800;color:var(--text)}
+.pc{font-size:11px;font-weight:700;margin-top:2px}
+.pc.new{color:#7c3aed}
+.pi-src{font-size:9px;color:#bbb;margin-top:3px}
+.bl{list-style:none;padding:0;margin:0}
+.bl li{font-size:13px;color:#444;padding:9px 0 9px 0;position:relative;border-bottom:1px solid var(--border);line-height:1.5}
+.bl li:last-child{border-bottom:none}
+.bl li strong.hl{display:block;font-size:12px;font-weight:800;color:#111;margin-bottom:2px}
+/* Relevance tags — 10-second scanning */
+.rtag{display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 7px;border-radius:20px;margin-right:6px;vertical-align:middle;white-space:nowrap}
+.rt-action{background:#fee2e2;color:#991b1b}
+.rt-watch{background:#fef3c7;color:#92400e}
+.rt-context{background:#f1f0ec;color:#6b7280}
+/* Mandatory Montis-angle callout */
+.montis-angle{display:block;margin-top:7px;background:var(--montis-bg);border-left:3px solid #6366f1;border-radius:0 8px 8px 0;padding:7px 11px;font-size:11px;color:var(--montis);line-height:1.45}
+.montis-angle strong{color:#312e81;font-weight:800}
+/* TL;DR Montis Brief */
+.tldr-card{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 60%,#4338ca 100%);color:#fff;border:none}
+.tldr-card .ct{color:#fff}
+.tldr-card .cs{color:#c7d2fe}
+.tldr-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:11px}
+.tldr-list li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:#e0e7ff}
+.tldr-list li strong{color:#fff;font-weight:700}
+.tldr-list .rtag{margin-top:2px}
+/* Regulatory Pulse */
+.reg-pulse{list-style:none;padding:0;margin:0}
+.reg-pulse li{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);align-items:start}
+.reg-pulse li:last-child{border-bottom:none}
+.rp-body{font-size:12.5px;color:#444;line-height:1.5}
+.rp-body strong{color:#111;font-weight:700}
+.rp-meta{display:block;margin-top:3px;font-size:10px;color:#777}
+.rp-meta .dl{font-weight:800;color:#991b1b}
+/* MDSA pill is neutral so it doesn't fight the 🔴/🟠/⚪ relevance tag; high/med/low read via weight, not hue */
+.rp-rel{display:inline-block;font-size:9px;font-weight:700;padding:1px 7px;border-radius:8px;margin-left:4px;text-transform:uppercase;letter-spacing:.3px;background:#f1f0ec;color:#6b7280}
+.rp-rel.high{color:#374151;font-weight:800}
+.rp-rel.med{color:#6b7280}
+.rp-rel.low{color:#9ca3af}
+.spills{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px}
+.sp{background:var(--pill);border-radius:9px;padding:9px 11px;text-align:center}
+.spl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:4px}
+.spv{font-size:12px;font-weight:700;color:#111;line-height:1.3}
+.sr{display:flex;align-items:flex-start;gap:9px;background:var(--pill);border-radius:9px;padding:12px 14px}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.dot.g{background:var(--up)}.dot.r{background:var(--dn)}.dot.y{background:var(--neu)}
+.sn{font-size:12px;color:#555}
+.est{display:inline-flex;align-items:center;font-size:9px;font-weight:700;color:#888;background:#f5f4f0;padding:2px 7px;border-radius:20px;margin-left:5px}
+.tag-montis{display:inline-flex;align-items:center;font-size:9px;font-weight:800;color:#3730a3;background:#e0e7ff;padding:2px 7px;border-radius:20px;margin-left:5px;text-transform:uppercase;letter-spacing:.4px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.sk{background:linear-gradient(90deg,#eeeee8 25%,#e5e4de 50%,#eeeee8 75%);background-size:200% 100%;animation:sh 1.3s infinite;border-radius:5px;height:12px;margin:5px 0}
+.sk.h2{height:18px}.sk.h3{height:46px}
+@keyframes sh{to{background-position:-200% 0}}
+.err{font-size:11px;color:var(--dn);background:#fef2f2;border-radius:7px;padding:7px 10px}
+.empty{font-size:12px;color:var(--muted);font-style:italic}
+.wgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.wi{background:var(--pill);border-radius:9px;padding:10px 12px}
+.wi-tag{display:inline-block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 7px;border-radius:10px;margin-bottom:6px}
+.tag-war{background:#fee2e2;color:#991b1b}
+.tag-crisis{background:#fff3cd;color:#92400e}
+.tag-econ{background:#e0f2fe;color:#075985}
+.tag-elect{background:#f3e8ff;color:#6b21a8}
+.tag-energy{background:#fef3c7;color:#92400e}
+.wi-title{font-size:12px;font-weight:700;color:#111;margin-bottom:4px;line-height:1.3}
+.wi-body{font-size:11px;color:#666;line-height:1.45}
+.wi-src{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;color:#999;text-decoration:none;background:rgba(0,0,0,.05);padding:2px 7px;border-radius:8px;margin-top:5px;transition:background .15s,color .15s}
+.wi-src:hover{background:rgba(0,0,0,.1);color:#333}
+html{scroll-behavior:smooth;scroll-padding-top:14px}
+.nav{max-width:900px;margin:0 auto 14px;display:flex;gap:6px;flex-wrap:wrap}
+.nav-btn{font-size:11px;font-weight:700;color:#444;background:#fff;border:1px solid var(--border);padding:6px 11px;border-radius:20px;text-decoration:none;transition:all .15s;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;cursor:pointer}
+.nav-btn:hover{background:#111;color:#fff;border-color:#111}
+.nav-btn:active{transform:scale(.96)}
+@media(max-width:640px){.g{grid-template-columns:1fr}.fw{grid-column:1}.spills{grid-template-columns:1fr 1fr}.pgrid{grid-template-columns:1fr 1fr}.wgrid{grid-template-columns:1fr 1fr}.nav{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;-webkit-overflow-scrolling:touch}.nav::-webkit-scrollbar{display:none}}
+@media(min-width:1000px){.hdr,.nav,.g{max-width:1120px}.wgrid{grid-template-columns:repeat(3,1fr)}.spills{grid-template-columns:repeat(4,1fr)}.nav{position:sticky;top:8px;z-index:10;background:rgba(244,243,239,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:9px 12px;border-radius:24px;box-shadow:0 2px 12px rgba(0,0,0,.05)}.card{padding:18px 20px}
+  /* keep running text at a readable measure on wide screens; tables/grids stay full width */
+  .bl,.reg-pulse,.tldr-list,.sr{max-width:84ch}}
+@media(min-width:1280px){.hdr,.nav,.g{max-width:1200px}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <h1>📰 Montis Daily</h1>
+    <div class="tag">TL;DR · Montis Radar · DLT &amp; Post-Trade · Regulatory Pulse · Macro · World — Matteo</div>
+  </div>
+  <div class="hdr-r">
+    <div class="toggle">
+      <a href="daily-digest.html" class="active">📰 Daily</a>
+      <a href="weekly-digest.html">📊 Weekly</a>
+    </div>
+    <a href="https://montis-newsletter.netlify.app" target="_blank" class="dbadge" style="text-decoration:none;cursor:pointer" title="Open live Netlify version">🌐 Live</a>
+    <div class="dbadge" id="dateBadge">DATE_PLACEHOLDER</div>
+    <button class="rbtn" id="rbtn" onclick="refreshAll()">
+      <span class="spin">↻</span> Refresh
+    </button>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <a href="#sec-tldr" class="nav-btn">⚡ TL;DR</a>
+  <a href="#sec-montis" class="nav-btn">🏛️ Montis Radar</a>
+  <a href="#sec-dlt" class="nav-btn">⛓️ DLT &amp; Post-Trade</a>
+  <a href="#sec-reg" class="nav-btn">⚖️ Regulatory Pulse</a>
+  <a href="#sec-outlook" class="nav-btn">✨ Macro</a>
+  <a href="#sec-geo" class="nav-btn">🌍 World</a>
+</nav>
+
+<div class="g">
+
+  <!-- 1. TL;DR — MONTIS BRIEF -->
+  <div class="card fw tldr-card" id="sec-tldr">
+    <div class="ch">
+      <div class="ci ci-tldr">⚡</div>
+      <div>
+        <div class="ct">TL;DR — Montis Brief</div>
+        <div class="cs">What Montis needs to know today · 20-second read · Monday, June 15, 2026</div>
+      </div>
+    </div>
+    <div id="tldrContent">TLDR_PLACEHOLDER</div>
+  </div>
+
+  <!-- 2. MONTIS RADAR (promoted from position 4) -->
+  <div class="card fw card-radar" id="sec-montis">
+    <div class="ch">
+      <div class="ci ci-montis">🏛️</div>
+      <div>
+        <div class="ct">Montis Radar <span class="tag-montis">core domain</span></div>
+        <div class="cs">Direct read-across — DLT securities · CSDs/ICSDs · Tokenised settlement · Wholesale CBDC · LU/EU infrastructure · June 15, 2026</div>
+      </div>
+    </div>
+    <div id="montisContent">MONTIS_PLACEHOLDER</div>
+  </div>
+
+  <!-- 3. DLT & POST-TRADE (merge of Blockchain&DLT + tokenisation; hard filter) -->
+  <div class="card fw" id="sec-dlt">
+    <div class="ch">
+      <div class="ci ci-bc">⛓️</div>
+      <div>
+        <div class="ct">DLT &amp; Post-Trade</div>
+        <div class="cs">Settlement · CSDs · T2S · Collateral · Wholesale CBDC · Tokenised securities — generic crypto filtered out · June 15, 2026</div>
+      </div>
+    </div>
+    <div id="dltContent">DLT_PLACEHOLDER</div>
+  </div>
+
+  <!-- 4. REGULATORY PULSE (NEW — daily) -->
+  <div class="card fw" id="sec-reg">
+    <div class="ch">
+      <div class="ci ci-reg">⚖️</div>
+      <div>
+        <div class="ct">Regulatory Pulse <span class="tag-montis">daily</span></div>
+        <div class="cs">CSSF · BCL · ESMA · EBA · MiCA · DLT Pilot Regime · CSDR refit — primary regulator docs only · June 15, 2026</div>
+      </div>
+    </div>
+    <div id="regContent">REG_PLACEHOLDER</div>
+  </div>
+
+  <!-- 5. MACRO OUTLOOK (condensed) -->
+  <div class="card fw" id="sec-outlook">
+    <div class="ch">
+      <div class="ci ci-sum">✨</div>
+      <div>
+        <div class="ct">Macro Outlook <span class="est">condensed context</span></div>
+        <div class="cs">Overnight moves · Day's releases · Central banks · Polymarket signal — Monday, June 15, 2026</div>
+      </div>
+    </div>
+    <div id="sumContent">SUM_PLACEHOLDER</div>
+  </div>
+
+  <!-- 6. GEOPOLITICS (overnight only) -->
+  <div class="card fw" id="sec-geo">
+    <div class="ch">
+      <div class="ci ci-geo">🌍</div>
+      <div>
+        <div class="ct">World Monitor — Geopolitics</div>
+        <div class="cs">Overnight developments only · Conflicts · Sanctions · Energy · June 15, 2026</div>
+      </div>
+    </div>
+    <div id="geoContent">GEO_PLACEHOLDER</div>
+  </div>
+
+</div>
+
+<script>
+function nowStr(){return new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}
+function todayStr(){return new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function pj(raw){if(!raw)return null;const t=typeof raw==='string'?raw:JSON.stringify(raw);const aS=t.indexOf('['),aE=t.lastIndexOf(']');if(aS!==-1&&aE>aS){try{return JSON.parse(t.slice(aS,aE+1))}catch{}}const oS=t.indexOf('{'),oE=t.lastIndexOf('}');if(oS!==-1&&oE>oS){try{return JSON.parse(t.slice(oS,oE+1))}catch{}}return null}
+function sk(n,c=''){return Array(n).fill(`<div class="sk ${c}"></div>`).join('')}
+/* Relevance-tag helpers — shared scanning vocabulary */
+const REL={action:{c:'rt-action',l:'🔴 Action'},watch:{c:'rt-watch',l:'🟠 Watch'},context:{c:'rt-context',l:'⚪ Context'}};
+function relTag(r){const k=(r||'watch').toLowerCase();const m=REL[k]||REL.watch;return `<span class="rtag ${m.c}">${m.l}</span>`}
+function angle(t){return t?`<span class="montis-angle"><strong>💡 Montis angle:</strong> ${esc(t)}</span>`:''}
+/* Renders the shared DLT/Montis bullet item with relevance tag + Montis-angle callout */
+function bulletItem(it){return `<li>${relTag(it.relevance)}<strong class="hl">${esc(it.title||'')}</strong>${esc(it.detail||'')}${angle(it.montis_angle)}${it.source_url?`<br><a class="src-link" href="${esc(it.source_url)}" target="_blank">↗ ${esc(it.source_name||'Source')}</a>`:''}</li>`}
+async function fetchNL(){try{const r=await window.cowork.callMcpTool('mcp__claude_ai_Gmail__search_threads',{query:'newer_than:3d -in:sent -in:draft -in:trash',pageSize:8});const threads=(r&&r.threads)||[];if(!threads.length)return[];const KW=['bond','dlt','tokeni','blockchain','crypto','finance','digest','briefing','market','warrant','clearstream','dtcc','ecb','fed','imf','euronext','cssf','esma','csd','settlement','paxos','mica'];const pool=threads.filter(t=>{const s=((t.messages[0]?.sender||'')+(t.messages[0]?.subject||'')+(t.messages[0]?.snippet||'')).toLowerCase();return KW.some(k=>s.includes(k))}).slice(0,4);const use=pool.length?pool:threads.slice(0,3);const full=await Promise.all(use.map(t=>window.cowork.callMcpTool('mcp__claude_ai_Gmail__get_thread',{threadId:t.id,messageFormat:'FULL_CONTENT'}).catch(()=>null)));return full.filter(Boolean).map((th,i)=>{const m=th.messages?.[0]||{};return{sender:m.sender||use[i].messages[0]?.sender||'',subject:m.subject||use[i].messages[0]?.subject||'',body:(m.plaintextBody||'').slice(0,3500)}}).filter(n=>n.body.length>50)}catch{return[]}}
+async function renderTLDR(nls){const ctx=nls.map(n=>n.subject+': '+n.body.slice(0,300)).join('\n');try{const res=await window.cowork.askClaude(`Today is ${todayStr()}. You write the "TL;DR — Montis Brief" for Montis Digital, a Luxembourg/London regulated DLT market infrastructure for tokenised securities (CSD-tier). Give the 3 things Montis needs to know today, DLT/CSD/tokenisation/regulatory first. Each carries a relevance tag.\n${ctx?'Context:\n'+ctx:''}\nReturn ONLY valid JSON: [{"relevance":"action|watch|context","text":"<1 sentence, bold the key fact with **>"}]`,[]);const items=pj(res);if(!Array.isArray(items)||!items.length)return;document.getElementById('tldrContent').innerHTML=`<ul class="tldr-list">${items.slice(0,3).map(it=>`<li>${relTag(it.relevance)}<span>${esc(it.text||'').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')}</span></li>`).join('')}</ul>`}catch{}}
+async function renderMontis(nls){const ctx=nls.map(n=>`[${n.sender}] ${n.subject}:\n${n.body.slice(0,500)}`).join('\n\n---\n\n');try{const res=await window.cowork.askClaude(`Today: ${todayStr()}.\nContext: Montis is a Luxembourg/London regulated DLT market infrastructure (CSD-tier) for tokenised securities. This "Montis Radar" covers the MOST DIRECT read-across only: CSDs/ICSDs moving to tokenisation (DTCC, Clearstream D7, Euroclear), native digital-bond settlement, wholesale CBDC (ECB Pontes/DL3S, BdF, BoE, BIS Agorá), EU/LU regulatory infrastructure (DLT Pilot Regime, CSSF, BCL), regulated cash-leg rails (ClearBank, Fnality, Partior).\n${ctx?'Newsletters:\n'+ctx:''}\nGive 5 items. EVERY item MUST have a one-line montis_angle (read-across for Montis).\nReturn ONLY valid JSON: [{"relevance":"action|watch|context","title":"<max 11 words>","detail":"<2 sentences>","montis_angle":"<1 sentence>","source_name":"<publication>","source_url":"<url>"}]`,[]);const items=pj(res);if(!Array.isArray(items)||!items.length)return;document.getElementById('montisContent').innerHTML=`<ul class="bl">${items.map(bulletItem).join('')}</ul>`}catch{}}
+async function renderDLT(nls){const ctx=nls.map(n=>`[${n.sender}] ${n.subject}:\n${n.body.slice(0,500)}`).join('\n\n---\n\n');try{const res=await window.cowork.askClaude(`Today: ${todayStr()}.\n${ctx?'Context:\n'+ctx:''}\nGive 4 "DLT & Post-Trade" updates for an MDSA-focused brief. HARD FILTER: settlement, CSDs, T2S, collateral, wholesale CBDC, tokenised securities, post-trade economics. Cut generic retail crypto noise. At most ONE AI item, only if it is AI+supervision or AI+post-trade. EVERY item MUST have a montis_angle.\nReturn ONLY valid JSON: [{"relevance":"action|watch|context","title":"<max 11 words>","detail":"<2 sentences>","montis_angle":"<1 sentence>","source_name":"<publication>","source_url":"<url>"}]`,[]);const items=pj(res);if(!Array.isArray(items)||!items.length)return;document.getElementById('dltContent').innerHTML=`<ul class="bl">${items.map(bulletItem).join('')}</ul>`}catch{}}
+async function renderReg(nls){const ctx=nls.map(n=>n.subject+': '+n.body.slice(0,300)).join('\n');try{const res=await window.cowork.askClaude(`Today: ${todayStr()}.\nYou write "Regulatory Pulse" for Montis (LU/London DLT CSD, mid-authorisation). Cover CSSF, BCL, ESMA, EBA, MiCA, DLT Pilot Regime, CSDR refit. Link the PRIMARY regulator document, not press. Give 5 entries with nearest deadlines first.\n${ctx?'Context:\n'+ctx:''}\nReturn ONLY valid JSON: [{"relevance":"action|watch|context","body":"<regulator · what · 1 line>","status":"<e.g. 'deadline Jun 15' or 'open now' or 'Q3 2026'>","mdsa":"high|medium|low","source_name":"<regulator>","source_url":"<primary url>"}]`,[]);const items=pj(res);if(!Array.isArray(items)||!items.length)return;const RM={high:'high',medium:'med',low:'low'};document.getElementById('regContent').innerHTML=`<ul class="reg-pulse">${items.map(it=>{const isDL=/deadline|close|due/i.test(it.status||'');return `<li>${relTag(it.relevance)}<div class="rp-body"><strong>${esc(it.body||'')}</strong><span class="rp-meta"><span class="${isDL?'dl':''}">${esc(it.status||'')}</span> · primary: ${esc(it.source_name||'')} <span class="rp-rel ${RM[(it.mdsa||'medium').toLowerCase()]||'med'}">MDSA relevance: ${esc(it.mdsa||'medium')}</span></span>${it.source_url?`<a class="src-link" href="${esc(it.source_url)}" target="_blank">↗ ${esc(it.source_name||'Source')}</a>`:''}</div></li>`}).join('')}</ul>`}catch{}}
+async function renderSum(nls){const ctx=nls.map(n=>n.subject+': '+n.body.slice(0,300)).join('\n');try{const res=await window.cowork.askClaude(`Today: ${todayStr()}.\n${ctx?'Context:\n'+ctx:''}\nGive a CONDENSED macro outlook (context, bottom-of-page) for an MDSA finance reader. 4 pills incl one Polymarket "odds of the day" line.\nReturn ONLY valid JSON:\n{"pills":[{"label":"Central banks","value":"<6 words>"},{"label":"Overnight","value":"..."},{"label":"Today's data","value":"..."},{"label":"🎯 Polymarket","value":"<odds of the day>"}],"sentiment":"positive|neutral|negative","note":"<one sentence, macro + 1 consumer-tech footnote>"}`,[]);const d=pj(res);if(!d||!Array.isArray(d.pills))return;const DM={positive:'g',neutral:'y',negative:'r'};const LM={positive:'😊 Constructive',neutral:'😐 Cautiously constructive',negative:'😟 Defensive'};const s=(d.sentiment||'neutral').toLowerCase();document.getElementById('sumContent').innerHTML=`<div class="spills">${d.pills.map(p=>`<div class="sp"><div class="spl">${esc(p.label)}</div><div class="spv">${esc(p.value)}</div></div>`).join('')}</div><div class="sr"><div class="dot ${DM[s]||'y'}"></div><div style="flex:1"><strong>${LM[s]||esc(d.sentiment)}</strong><span class="sn">&nbsp;— ${esc(d.note||'')}</span></div></div>`}catch{}}
+async function renderGeo(nls){const ctx=nls.map(n=>`[${n.sender}] ${n.subject}:\n${n.body.slice(0,500)}`).join('\n\n---\n\n');const TAGS={'war':'tag-war','crisis':'tag-crisis','econ':'tag-econ','elect':'tag-elect','energy':'tag-energy'};try{const res=await window.cowork.askClaude(`Today: ${todayStr()}.\n${ctx?'Context:\n'+ctx:''}\nGive 3 OVERNIGHT geopolitical/macro cards (conflicts, sanctions, central banks, energy). Overnight developments only.\nReturn ONLY valid JSON: [{"tag":"war|crisis|econ|elect|energy","emoji":"🔴|⚡|💸|🗳️|⚠️","label":"<tag label>","title":"<10 words>","body":"<2 sentences>","source_name":"<publication>","source_url":"<direct url>"}]`,[]);const cards=pj(res);if(!Array.isArray(cards)||!cards.length)return;document.getElementById('geoContent').innerHTML=`<div class="wgrid">${cards.map(c=>{const tc=TAGS[c.tag]||'tag-econ';return`<div class="wi"><div class="wi-tag ${tc}">${esc(c.emoji||'')} ${esc(c.label||'')}</div><div class="wi-title">${esc(c.title||'')}</div><div class="wi-body">${esc(c.body||'')}</div>${c.source_url?`<a class="wi-src" href="${esc(c.source_url)}" target="_blank">↗ ${esc(c.source_name||'Source')}</a>`:''}</div>`}).join('')}</div>`}catch{}}
+async function refreshAll(){const btn=document.getElementById('rbtn');btn.disabled=true;btn.classList.add('loading');btn.innerHTML='<span class="spin">↻</span> Refreshing…';document.getElementById('dateBadge').textContent=todayStr();const nls=await fetchNL();await Promise.all([renderTLDR(nls),renderMontis(nls),renderDLT(nls),renderReg(nls),renderSum(nls),renderGeo(nls)]);btn.disabled=false;btn.classList.remove('loading');btn.innerHTML='<span class="spin">↻</span> Refresh'}
+window.addEventListener('DOMContentLoaded',()=>{document.getElementById('dateBadge').textContent=todayStr()});
+</script>
+</body>
+</html>
