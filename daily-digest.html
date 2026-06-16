@@ -401,20 +401,6 @@ async function renderSum(nls){const ctx=nls.map(n=>n.subject+': '+n.body.slice(0
 async function renderGeo(nls){const ctx=nls.map(n=>`[${n.sender}] ${n.subject}:\n${n.body.slice(0,500)}`).join('\n\n---\n\n');const TAGS={'war':'tag-war','crisis':'tag-crisis','econ':'tag-econ','elect':'tag-elect','energy':'tag-energy'};try{const res=await window.cowork.askClaude(`Today: ${todayStr()}.\n${ctx?'Context:\n'+ctx:''}\nGive 3 OVERNIGHT geopolitical/macro cards (conflicts, sanctions, central banks, energy). Overnight developments only.\nReturn ONLY valid JSON: [{"tag":"war|crisis|econ|elect|energy","emoji":"🔴|⚡|💸|🗳️|⚠️","label":"<tag label>","title":"<10 words>","body":"<2 sentences>","source_name":"<publication>","source_url":"<direct url>"}]`,[]);const cards=pj(res);if(!Array.isArray(cards)||!cards.length)return;document.getElementById('geoContent').innerHTML=`<div class="wgrid">${cards.map(c=>{const tc=TAGS[c.tag]||'tag-econ';return`<div class="wi"><div class="wi-tag ${tc}">${esc(c.emoji||'')} ${esc(c.label||'')}</div><div class="wi-title">${esc(c.title||'')}</div><div class="wi-body">${esc(c.body||'')}</div>${c.source_url?`<a class="wi-src" href="${esc(c.source_url)}" target="_blank">↗ ${esc(c.source_name||'Source')}</a>`:''}</div>`}).join('')}</div>`}catch{}}
 async function refreshAll(){const btn=document.getElementById('rbtn');btn.disabled=true;btn.classList.add('loading');btn.innerHTML='<span class="spin">↻</span> Refreshing…';document.getElementById('dateBadge').textContent=todayStr();const nls=await fetchNL();await Promise.all([renderTLDR(nls),renderMontis(nls),renderDLT(nls),renderReg(nls),renderSum(nls),renderGeo(nls)]);btn.disabled=false;btn.classList.remove('loading');btn.innerHTML='<span class="spin">↻</span> Refresh'}
 window.addEventListener('DOMContentLoaded',()=>{document.getElementById('dateBadge').textContent=todayStr()});
-
-/* === DAILY AI CONTENT LOADER === */
-(function(){
-  function applyContent(d){
-    if(d.date){var b=document.getElementById('dateBadge');if(b)b.textContent=d.date;}
-    var map={tldr:'tldrContent',montis:'montisContent',dlt:'dltContent',reg:'regContent',sum:'sumContent',geo:'geoContent'};
-    Object.keys(map).forEach(function(k){if(d[k]){var el=document.getElementById(map[k]);if(el)el.innerHTML=d[k];}});
-  }
-  fetch('./content.json?t='+Date.now())
-    .then(function(r){return r.ok?r.json():null})
-    .then(function(d){if(d)applyContent(d);})
-    .catch(function(){});
-})();
-
 </script>
 </body>
 </html>
